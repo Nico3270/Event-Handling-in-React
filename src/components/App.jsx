@@ -3,10 +3,11 @@ import React from "react";
 function App() {
   const [heading, setHeading] = React.useState("Hello");
   const [colorBu, setColor] = React.useState({});
+  const [nombres, setNombre] = React.useState("");
   function changeHeading(){
-    let texto = "Enviado";
+    let texto = "Hello " ;
     heading==="Hello"?
-    setHeading(texto)
+    setHeading(texto + nombres)
     :
     setHeading("Hello")
   }
@@ -18,10 +19,16 @@ function App() {
   function quitColor() {
     setColor({ });
   }
+
+
+  function handleChange(event){
+    setNombre(event.target.value)
+  }
+
   return (
     <div className="container">
       <h1>{heading}</h1>
-      <input type="text" placeholder="What's your name?" />
+      <input onChange={handleChange} type="text" value={nombres} placeholder="What's your name?" />
       <button onMouseOver={changeColor} onMouseOut={quitColor} onClick={changeHeading} style={colorBu}>Submit</button>
     </div>
   );
