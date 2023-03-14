@@ -3,13 +3,13 @@ import React from "react";
 function App() {
   const [heading, setHeading] = React.useState("Hello");
   const [colorBu, setColor] = React.useState({});
-  const [nombres, setNombre] = React.useState("");
-  function changeHeading(){
-    let texto = "Hello " ;
-    heading==="Hello"?
-    setHeading(texto + nombres)
-    :
-    setHeading("Hello")
+  const [fullName, setFullName] = React.useState({
+    fName: "",
+    lName: "",
+  });
+  function changeHeading() {
+    let texto = "Hello ";
+    heading === "Hello" ? setHeading(texto + nombres) : setHeading("Hello");
   }
 
   function changeColor() {
@@ -17,19 +17,56 @@ function App() {
   }
 
   function quitColor() {
-    setColor({ });
+    setColor({});
   }
 
-
-  function handleChange(event){
-    setNombre(event.target.value)
+  function handleChange(event) {
+    const { name, value } = event.target;
+    //Se utiliza setFullname y se crea una función flecha que contiene el objeto áctual dentro de preValue
+    setFullName((prevValue) => {
+      if (name === "fName") {
+        return {
+          fName: value,
+          lName: prevValue.lName,
+        };
+      } else if (name === "lName") {
+        return {
+          fName: prevValue.fName,
+          lName: value,
+        };
+      }
+    });
   }
 
   return (
     <div className="container">
-      <h1>{heading}</h1>
-      <input onChange={handleChange} type="text" value={nombres} placeholder="What's your name?" />
-      <button onMouseOver={changeColor} onMouseOut={quitColor} onClick={changeHeading} style={colorBu}>Submit</button>
+      <h1>
+        {heading} {fullName.fName} {fullName.lName}
+      </h1>
+      <form>
+        <input
+          onChange={handleChange}
+          type="text"
+          name="fName"
+          value={fullName.fName}
+          placeholder="¿Cuál es tu nombre?"
+        />
+        <input
+          onChange={handleChange}
+          type="text"
+          name="lName"
+          value={fullName.lName}
+          placeholder="¿Cuál es tu apellido?"
+        />
+        <button
+          onMouseOver={changeColor}
+          onMouseOut={quitColor}
+          onClick={changeHeading}
+          style={colorBu}
+        >
+          Submit
+        </button>
+      </form>
     </div>
   );
 }
