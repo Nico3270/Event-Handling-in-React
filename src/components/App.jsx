@@ -22,29 +22,13 @@ function App() {
   }
 
   function handleChange(event) {
-    const { name, value, placeholder } = event.target;
+    const { name, value } = event.target;
     //Se utiliza setFullname y se crea una función flecha que contiene el objeto áctual dentro de preValue
     setContact((prevValue) => {
-      if (name === "fName") {
-        //Se crea un nuevo objeto a partir de preValue y los valores en input
-        return {
-          fName: value,
-          lName: prevValue.lName,
-          email: prevValue.email,
-        };
-      } else if (name === "lName") {
-        return {
-          fName: prevValue.fName,
-          lName: value,
-          email: prevValue.email,
-        };
-      } else if (name === "email") {
-        return {
-          fName: prevValue.fName,
-          lName: prevValue.lName,
-          email: value,
-        };
-      }
+      return {
+        ...prevValue,
+        [name]: value,
+      };
     });
   }
 
